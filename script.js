@@ -1,6 +1,6 @@
 const form = document.querySelector('form');
 const submitBtn = document.querySelector('.submit-btn');
-const error = doocument.querySelector('.error-msg');
+const error = document.querySelector('.error-msg');
 form.addEventListener('submit', handleSubmit);
 submitBtn.addEventListener('click', handleSubmit);
 
@@ -11,7 +11,7 @@ function handleSubmit(e) {
 
 async function getWeatherData(location) {
     const response = await fetch(
-      http://api.weatherapi.com/v1/forecast.json?key=d12d5fe486cc4e40b64164906222409&q=${location},
+      `http://api.weatherapi.com/v1/forecast.json?key=1986480656ec490d950204923202611&q=${location}`,
       {
         mode: 'cors',
       }
@@ -26,7 +26,7 @@ async function getWeatherData(location) {
       reset();
     }
   }
-
+  
   function throwErrorMsg() {
     error.style.display = 'block';
     if (error.classList.contains('fade-in')) {
@@ -55,11 +55,42 @@ async function getWeatherData(location) {
       humidity: weatherData.current.humidity,
       location: weatherData.location.name.toUpperCase(),
     };
-      if (weatherData.location.country === 'United States of America') {
-    myData['region'] = weatherData.location.region.toUpperCase();
-  } else {
-    myData['region'] = weatherData.location.country.toUpperCase();
+  
+    if (weatherData.location.country === 'United States of America') {
+      myData['region'] = weatherData.location.region.toUpperCase();
+    } else {
+      myData['region'] = weatherData.location.country.toUpperCase();
+    }
+  
+    return myData;
   }
 
-  return myData;
-}
+function displayData(newData) {
+    const weatherInfo = document.getElementsByClassName('info');
+    Array.from(weatherInfo).forEach((div) => {
+      if (div.classList.contains('fade-in2')) {
+        div.classList.remove('fade-in2');
+        div.offsetWidth;
+        div.classList.add('fade-in2');
+      } else {
+        div.classList.add('fade-in2');
+      }
+    });
+    document.querySelector('.condition').textContent = newData.condition;
+    document.querySelector('.location').textContent = `${newData.location}, ${newData.region}`;
+    document.querySelector('.degrees').textContent = newData.currentTemp.c;
+    document.querySelector('.feels-like').textContent = `FEELS LIKE: ${newData.feelsLike.c}`;
+    document.querySelector('.wind-mph').textContent = `WIND: ${newData.wind} MPH`;
+    document.querySelector('.humidity').textContent = `HUMIDITY: ${newData.humidity}`;
+  }
+  
+  function reset() {
+    form.reset();
+  }
+  
+  // get location from user
+  function fetchWeather() {
+    const input = document.querySelector('input[type="text"]');
+    const userLocation = input.value;
+    getWeatherData(userLocation);
+  }

@@ -1,33 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta
+    http-equiv="Content-Security-Policy"
+    content="upgrade-insecure-requests"
+  />
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Weather App</title>
     <link rel="stylesheet" href="style.css">
-    <script src="script.js" defer></script>
+    <title>Weather App</title>
 </head>
 <body>
     <div id="main-container">
         <header>
-
             <form>
                 <div class="form-group">
-                    <input type="text" placeholder="Search city">
+                    <input type="text" placeholder="Search city or country"/>
                     <button class="submit-btn">
                         <i class="fas fa-search"></i>
                     </button>
-                    <br>
+                    <br/>
                     <span class="error-msg">No matching locations found.</span>
                 </div>
             </form>
 
         </header>
-
         <div class="main-weather-display info">
             <div class="general-info">
-              <p class="condition">MOSTLY SUNNY</p>
+              <p class="condition">Mostly Sunny</p>
               <h1 class="location">LONDON, UNITED KINGDOM</h1>
               <span class="degrees">13</span>
             </div>
@@ -45,5 +46,6 @@
             </p>
         </footer>
     </div>
+    <script src="script.js"></script>
 </body>
 </html>
